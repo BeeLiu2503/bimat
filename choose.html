@@ -3,75 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Hộp Quà</title>
+    <title>Bí Mật 🎁</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffccff;
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #fce4ec;
+            margin: 0;
+            padding: 0;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        h1 {
+            color: #d81b60;
+        }
+        .gifts {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
         }
         .gift-box {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            background-color: #ff66b2;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            width: 120px;
+            height: 120px;
+            background-color: #ff80ab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
             cursor: pointer;
-            position: relative;
-            transition: transform 1s ease-in-out;
+            transition: transform 0.6s ease-in-out;
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
         }
-        .gift-box.fly {
-            position: absolute;
-            animation: flyUp 2s forwards, spin 1s 2s forwards;
+        .gift-box:hover {
+            transform: scale(1.1);
         }
-        .hidden { display: none; }
-
-        @keyframes flyUp {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-150px); }
+        .spin {
+            animation: spin 0.6s ease-in-out forwards;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
     </style>
-    <script>
-        function openGift(giftId, button) {
-            button.classList.add("fly");
-            setTimeout(() => {
-                document.getElementById("message").innerHTML = document.getElementById(giftId).innerHTML;
-                document.getElementById("message").classList.remove("hidden");
-            }, 3000);
-        }
-    </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Chọn một hộp quà 🎁</h1>
-        <button class="gift-box" onclick="openGift('gift1', this)">Hộp 1 🎁</button>
-        <button class="gift-box" onclick="openGift('gift2', this)">Hộp 2 🎁</button>
-        <button class="gift-box" onclick="openGift('gift3', this)">Hộp 3 🎁</button>
-        <button class="gift-box" onclick="openGift('gift4', this)">Hộp 4 🎁</button>
-        <h2 id="message" class="hidden"></h2>
-        <div id="gift1" class="hidden">Gương 🪞</div>
-        <div id="gift2" class="hidden">Túi 🛍️</div>
-        <div id="gift3" class="hidden">Kẹo hoặc Ôm hôn 😘😘</div>
-        <div id="gift4" class="hidden">Chúc Pống may mắn lần sau 🤷‍♂️😁😁</div>
+    <h1>Chọn một hộp quà 🎁</h1>
+    <div class="gifts">
+        <div class="gift-box" onclick="showGift(this, '🪞 Gương')">Hộp 1</div>
+        <div class="gift-box" onclick="showGift(this, '🛍️ Túi')">Hộp 2</div>
+        <div class="gift-box" onclick="showGift(this, '😘😘 Kẹo hoặc Ôm Hôn')">Hộp 3</div>
+        <div class="gift-box" onclick="showGift(this, '🤷‍♂️😁 Chúc Pống may mắn lần sau!')">Hộp 4</div>
     </div>
+
+    <script>
+        let isSpinning = false; // Ngăn chọn nhiều hộp cùng lúc
+
+        function showGift(element, gift) {
+            if (isSpinning) return; // Không cho phép chọn nhiều hộp cùng lúc
+            isSpinning = true;
+
+            element.classList.add("spin");
+            setTimeout(() => {
+                alert("Bạn nhận được: " + gift);
+                element.classList.remove("spin");
+                isSpinning = false; // Cho phép chọn lại sau khi hiệu ứng kết thúc
+            }, 600);
+        }
+    </script>
 </body>
 </html>
